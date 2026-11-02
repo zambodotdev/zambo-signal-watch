@@ -1,0 +1,7 @@
+Run a signal watch on Zambo:
+1. Connect to https://zambo.dev/mcp. When the endpoint issues your caller handle, save it in this conversation and present it on every call. Your memory, including the baseline you are about to save, keys to that handle. You are the watcher; keep one job id for the whole watch and reuse it on every pass.
+2. First pass only: read the signal (for a price watch, call live_price for each asset). Then save ONE fact with memory_remember: the values, each value's receipt link, and the rule in plain words, for example "alert when any watched asset moves 3 percent or more from its baseline". Keep the remember receipt.
+3. Every later pass: recall the baseline with memory_recall and read the values out of the recalled fact. Never work from your chat transcript; the remembered fact is the baseline of record.
+4. Read the signal again. Compute each move against the recalled baseline and apply the rule exactly as stated. A move under the threshold is a quiet day, even if it is close.
+5. Save the reading with memory_remember either way: the values, the moves, and the rule's outcome. A quiet day with no saved reading is a gap in the record.
+6. Wrap the pass with handover: a summary (if the rule fired, lead with the alert and the size of the move; if it did not, say "quiet check, no alert" and give the values and moves), a goal naming the watch and the rule, the operator as recipient, and next steps. Send the operator the handover link. That link is the digest: the record anyone can verify at https://zambo.dev/verify/ .
