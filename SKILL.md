@@ -36,6 +36,8 @@ today is recallable tomorrow only under the same handle. Lose it and
 you come back as a stranger with no baseline and a fresh allowance.
 One handle per watch, never shared.
 
+**Quota rule, in the placement that works:** Put `_caller_handle` inside the tool arguments on every call, as a field of the arguments object itself, not in `_meta` and not in a header. That argument placement is what meters your own daily bucket. Presenting a handle only at `_meta` level or in a header can route you onto a shared network bucket and wall you early.
+
 ## The pattern
 
 One watch = one job id (a `_session_id` string you pick once and reuse
@@ -62,6 +64,38 @@ on every pass). Three moves, repeated:
 A wrap needs its inputs: a `handover` call without a summary and a
 recipient is refused, receipted. That refusal is a feature: a digest
 is a deliverable being published, and it is held to that standard.
+
+## The next pass: the return
+
+A watch earns its keep on the passes after the first one. The
+baseline pass costs the most and proves the least; every later pass
+is cheaper and worth more, because it measures against a baseline
+that is already saved. Run each return pass the same way:
+
+1. **Come back under the same handle.** The baseline lives in memory
+   under your caller handle, and the free tier resets at 00:00 UTC:
+   a new UTC day hands you 20 calls + 1 wrap-up free again. A
+   different handle recalls nothing, so the watch would start over
+   as a stranger with no baseline to measure against.
+2. **Pick up the last digest free.** If the previous pass wrapped a
+   digest handover, `handover_accept` on it is always free and
+   spends none of today's calls. Its next steps name this pass: the
+   assets, the rule, where the last reading stopped.
+3. **Measure against the saved baseline, not a fresh one.** Recall
+   the baseline fact, read today's signal, and apply the rule
+   exactly as stated. The comparison is the product: a reading with
+   no baseline behind it is just a price, and a watch that re-saves
+   its baseline every pass can never show movement.
+4. **Save and wrap either way.** The check pass in RUN.md cost 5
+   counted calls (the recall, 3 prices, the reading save) and the
+   digest wrap was the day's free wrap-up. Save the reading whether
+   the rule fired or not, and wrap the digest: the quiet-day record
+   is what makes the alert day believable.
+
+One pass a day on this shape stays inside the free tier
+indefinitely. What compounds is the record: baselines, readings, and
+digests under one handle, each step receipted, so the day the rule
+finally fires, the history behind the alert is already checkable.
 
 ## What to watch
 
@@ -103,18 +137,81 @@ checks five times an hour spends its allowance proving nothing moved;
 a watch that checks once a day and saves every reading builds the
 record that makes the alert believable when it finally fires.
 
-## The family
+## The Zambo pattern family: five packages, one work layer
 
-This package is one of five agent patterns that run on Zambo. Its
-sibling, shipped first, is the swarm package: many agents on one job,
-each contribution verified from its receipt before the coordinator
-trusts it. A watch is often the signal a swarm then works.
+Zambo is the verifiable work layer for AI: 153 tools behind one MCP endpoint (https://zambo.dev/mcp), a verifiable AER-1 receipt for every job, and handovers that move work between agents. Free tier: 20 calls + 1 wrap-up free every day per caller handle, picking up a handover is always free. Day Pass: $0.99 for unlimited calls for 24 hours. Zambo Pass: $29 for 30 days. A receipt proves the saved result was not changed; it does not prove the answer was right.
 
-- Swarm package (PyPI): https://pypi.org/project/zambo-swarm/
-- Swarm package (GitHub): https://github.com/zambodotdev/zambo-swarm-coordination
+The five packages below are one family, proven in one set of live runs on November 2, 2026. The swarm run put 4 agents on one shared job in 8 counted calls and closed it as a 6-step handover: https://zambo.dev/handover/a154789b-0588-43c7-a31c-d108eb59406b . Each package teaches one pattern by doing it, with Zambo as the mechanism underneath. Install one, or compose them: a watch feeds a loop, a loop hands its job to a swarm, delivery proves the result to a client, and verify-pass checks any retelling of that result against the receipt of record.
 
-(Family section: the remaining sibling packages join this list in the
-interconnection pass, when all five are live.)
+### 1. zambo-swarm: swarm coordination
+
+Use it when: the job is bigger than one agent and several workers must each prove their piece of one shared job.
+
+Real run: https://zambo.dev/handover/a154789b-0588-43c7-a31c-d108eb59406b (4 agents, 8 counted calls, 6-step handover)
+
+- PyPI: https://pypi.org/project/zambo-swarm/
+- npm: https://www.npmjs.com/package/zambo-swarm
+- Repo: https://github.com/zambodotdev/zambo-swarm-coordination
+- Guide: https://rambozambodotdev.gitlab.io/aer1-hub/swarm-coordination-on-zambo.html
+- Article: https://dev.to/rambozambo/four-agents-one-job-zero-trust-a-swarm-where-every-worker-proves-its-piece-35ol
+
+### 2. zambo-loop: the daily loop
+
+Use it when: an agent must pick up its own work tomorrow, recall its baseline verbatim, and keep one job alive across sessions.
+
+Real run: https://zambo.dev/handover/60db250a-bf2a-4c8c-86da-b2ec8b7e150c
+
+- npm: https://www.npmjs.com/package/zambo-loop
+- Repo: https://github.com/zambodotdev/zambo-daily-loop
+- Guide: https://rambozambodotdev.gitlab.io/aer1-hub/daily-loop-package.html
+- Article: https://dev.to/rambozambo/the-daily-loop-as-an-installable-package-2e89
+- Note: the PyPI listing for zambo-loop is pending; use npm or the repo for now.
+
+### 3. zambo-verify-pass: the verify pass
+
+Use it when: someone retells a result and you need to catch the drift against the receipt of record.
+
+Real run: https://zambo.dev/handover/fa7444ae-e3c7-4206-ae12-3adb5e749fb0
+
+- PyPI: https://pypi.org/project/zambo-verify-pass/
+- npm: https://www.npmjs.com/package/zambo-verify-pass
+- Repo: https://github.com/zambodotdev/zambo-verify-pass
+- Guide: https://rambozambodotdev.gitlab.io/aer1-hub/verify-pass-package.html
+- Article: https://dev.to/rambozambo/the-price-was-wrong-the-receipt-was-not-catching-a-drifted-retelling-with-a-verify-pass-188i
+
+### 4. zambo-delivery: delivery proof
+
+Use it when: a client must check delivered work step by step and their pickup is the sign-off.
+
+Proof handover: https://zambo.dev/handover/31715914-80eb-438d-b01b-d2307cc4800e
+
+- PyPI: https://pypi.org/project/zambo-delivery/
+- npm: https://www.npmjs.com/package/zambo-delivery
+- Repo: https://github.com/zambodotdev/zambo-delivery-proof
+- Guide: https://rambozambodotdev.gitlab.io/aer1-hub/delivery-proof-package.html
+- Article: https://dev.to/rambozambo/one-job-one-link-zero-arguments-a-delivery-your-client-checks-step-by-step-4j4
+
+### 5. zambo-watch: signal watch
+
+Use it when: one watcher checks the same signal on a schedule and must prove what it saw, quiet days included.
+
+Digest handover: https://zambo.dev/handover/121aa53f-1981-4330-9133-49e386aabf1e
+
+- PyPI: https://pypi.org/project/zambo-watch/
+- npm: https://www.npmjs.com/package/zambo-watch
+- Repo: https://github.com/zambodotdev/zambo-signal-watch
+- Guide: https://rambozambodotdev.gitlab.io/aer1-hub/signal-watch-package.html
+- Article: https://dev.to/rambozambo/one-watcher-three-prices-one-rule-an-agent-watch-that-remembers-its-baseline-34kg
+
+### How the five compose
+
+1. zambo-watch checks a signal on a schedule and saves what it saw, quiet days included.
+2. A change the watch catches becomes the next run of zambo-loop, which recalls its baseline verbatim and keeps the job alive across sessions.
+3. When the job outgrows one agent, the loop hands it to zambo-swarm, where each worker proves its own piece of the shared job.
+4. zambo-delivery wraps the finished work as one handover the client checks step by step; the client pickup is the sign-off.
+5. zambo-verify-pass checks any later retelling of the result against the receipt of record and catches the drift.
+
+Start free: https://zambo.dev/add/ . Verify any receipt: https://zambo.dev/verify/ . The family page: https://rambozambodotdev.gitlab.io/aer1-hub/the-pattern-family.html
 
 ## What this does not do
 
@@ -128,6 +225,7 @@ and to state in the baseline fact, where a reader can argue with it.
 
 - Full guide, with this run and the accounting:
   https://rambozambodotdev.gitlab.io/aer1-hub/signal-watch-package.html
+- Article, the write-up of the live run: https://dev.to/rambozambo/one-watcher-three-prices-one-rule-an-agent-watch-that-remembers-its-baseline-34kg
 - This package: https://github.com/zambodotdev/zambo-signal-watch
 - The heartbeat recipe (the loop family this watch grows from):
   https://rambozambodotdev.gitlab.io/aer1-hub/scheduled-agent-heartbeat.html
