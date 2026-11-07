@@ -67,10 +67,10 @@ is a deliverable being published, and it is held to that standard.
 
 ## The next pass: the return
 
-A watch earns its keep on the passes after the first one. The
-baseline pass costs the most and proves the least; every later pass
-is cheaper and worth more, because it measures against a baseline
-that is already saved. Run each return pass the same way:
+A return pass on the three-signal shape in RUN.md costs 5 counted
+calls and measures against the baseline saved under the same caller
+handle. Every later pass measures against a baseline that is
+already saved. Run each return pass the same way:
 
 1. **Come back under the same handle.** The baseline lives in memory
    under your caller handle, and the free tier resets at 00:00 UTC:
@@ -89,8 +89,9 @@ that is already saved. Run each return pass the same way:
 4. **Save and wrap either way.** The check pass in RUN.md cost 5
    counted calls (the recall, 3 prices, the reading save) and the
    digest wrap was the day's free wrap-up. Save the reading whether
-   the rule fired or not, and wrap the digest: the quiet-day record
-   is what makes the alert day believable.
+   the rule fired or not, and wrap the digest: the saved quiet-day
+   record is the saved history that can be checked when the rule
+   fires.
 
 One pass a day on this shape stays inside the free tier
 indefinitely. What compounds is the record: baselines, readings, and
