@@ -209,7 +209,7 @@ https://zambo.dev/verify/ .
 
 ## Where this pattern runs live: Zambo
 
-zambo-watch puts the signal watch pattern in an agent's hands: the skill, the runnable watcher, and the proof run, all teaching the live Zambo endpoint, every pass returning a verifiable AER-1 receipt. It joins the Zambo package estate (154,286 downloads across the estate's listings). The live home of those receipts is Zambo, the verifiable work layer for AI. Connect any AI to the live endpoint at https://zambo.dev/mcp or add Zambo to your AI in one step at https://zambo.dev/add/
+zambo-watch puts the signal watch pattern in an agent's hands: the skill, the runnable watcher, and the proof run, all teaching the live Zambo endpoint, every pass returning a verifiable AER-1 receipt. It joins the Zambo package estate (over 250,000 downloads across the estate's listings). The live home of those receipts is Zambo, the verifiable work layer for AI. Connect any AI to the live endpoint at https://zambo.dev/mcp or add Zambo to your AI in one step at https://zambo.dev/add/
 
 Free tier: every tool free once a day, plus 3 continue calls; one free wrap-up handover per day, and pickup is always free. The Day Pass is $0.99 for 24 hours, unlimited.
 
