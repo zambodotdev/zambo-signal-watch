@@ -33,10 +33,10 @@ state file before doing anything else, and present it as
 `_caller_handle` on every call, with your agent name as
 `_caller_label`. Your memory keys to that handle: the baseline you save
 today is recallable tomorrow only under the same handle. Lose it and
-you come back as a stranger with no baseline and a fresh allowance.
+you come back as a stranger with no baseline. Metering is per network, so a fresh handle mints no fresh allowance.
 One handle per watch, never shared.
 
-**Quota rule, in the placement that works:** Put `_caller_handle` inside the tool arguments on every call, as a field of the arguments object itself, not in `_meta` and not in a header. That argument placement is what meters your own daily bucket. Presenting a handle only at `_meta` level or in a header can route you onto a shared network bucket and wall you early.
+**Quota rule, in the placement that works:** Put `_caller_handle` inside the tool arguments on every call, as a field of the arguments object itself, not in `_meta` and not in a header. Metering is per network by design, not per handle: every metered tool is free once per network per UTC day, plus 3 continue calls shared across tools, and a fresh handle mints no fresh allowance.
 
 ## The pattern
 
@@ -74,7 +74,7 @@ already saved. Run each return pass the same way:
 
 1. **Come back under the same handle.** The baseline lives in memory
    under your caller handle, and the free tier resets at 00:00 UTC:
-   a new UTC day hands you 20 calls + 1 wrap-up free again. A
+   a new UTC day restores the free tier: every tool free once, plus 3 shared continue calls, and one free wrap-up. A
    different handle recalls nothing, so the watch would start over
    as a stranger with no baseline to measure against.
 2. **Pick up the last digest free.** If the previous pass wrapped a
@@ -117,8 +117,7 @@ fact, and the reading is saved whether or not the rule fires.
 
 ## The accounting (why this shape, in numbers)
 
-Free tier, per agent: 20 calls + 1 wrap-up free every day, keyed to
-your own caller handle; picking up a handover is always free. The run
+Free tier, metered per network: every tool free once a day, plus 3 continue calls shared across tools; one free wrap-up handover per day, and picking up a handover is always free. The run
 in RUN.md cost 4 counted calls for the baseline pass (3 prices + the
 baseline save) and 5 per check pass (the recall, 3 prices, the reading
 save); the digest wrap was free. Run once a day, a three-signal watch
@@ -140,7 +139,7 @@ record that makes the alert believable when it finally fires.
 
 ## The Zambo pattern family: five packages, one work layer
 
-Zambo is the verifiable work layer for AI: 153 tools behind one MCP endpoint (https://zambo.dev/mcp), a verifiable AER-1 receipt for every job, and handovers that move work between agents. Free tier: 20 calls + 1 wrap-up free every day per caller handle, picking up a handover is always free. Day Pass: $0.99 for unlimited calls for 24 hours. Zambo Pass: $29 for 30 days. A receipt proves the saved result was not changed; it does not prove the answer was right.
+Zambo is the verifiable work layer for AI: 153 tools behind one MCP endpoint (https://zambo.dev/mcp), a verifiable AER-1 receipt for every job, and handovers that move work between agents. Free tier: every tool free once a day, plus 3 continue calls shared across tools, metered per network; one free wrap-up handover per day, and picking up a handover is always free. Day Pass: $0.99 for unlimited calls for 24 hours. Zambo Pass: $29 for 30 days. A receipt proves the saved result was not changed; it does not prove the answer was right.
 
 The five packages below are one family, proven in one set of live runs on November 2, 2026. The swarm run put 4 agents on one shared job in 8 counted calls and closed it as a 6-step handover: https://zambo.dev/handover/a154789b-0588-43c7-a31c-d108eb59406b . Each package teaches one pattern by doing it, with Zambo as the mechanism underneath. Install one, or compose them: a watch feeds a loop, a loop hands its job to a swarm, delivery proves the result to a client, and verify-pass checks any retelling of that result against the receipt of record.
 
