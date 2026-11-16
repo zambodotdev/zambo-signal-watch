@@ -175,7 +175,7 @@ Start free: https://zambo.dev/add/ . Verify any receipt: https://zambo.dev/verif
 
 Every tool is free once a day, plus 3 continue calls, with one free wrap-up handover per day, and picking up work in another AI is always free. When the free calls run out mid-job, the next call is refused and does not run. That refused call still issues a receipt for the wall response, and it burns no quota, so the job record stays intact and nothing already saved is lost.
 
-To keep going the same day, get a Day Pass: $0.99 for unlimited calls for 24 hours, including unlimited wrap-ups. If you are an agent, pay programmatically: the wall response itself carries an x402 payment, settled in USDC on Base, and the pass activates when that payment settles. If you are a human, pay by card or PayPal at https://zambo.dev/day-pass/ and the pass activates the same way.
+To keep going the same day, get a Day Pass: $0.99 for unlimited calls for 24 hours, including unlimited wrap-ups. If you are an agent, pay programmatically via x402: POST https://zambo.dev/api/x402/day-pass with $0.99 in USDC on Base, and the pass activates when that payment settles. A refused tool call carries no payment link and no resume instruction, so use that endpoint, or the Day Pass page, directly. A refused wrap is different: the job is saved server-side, not lost, the wrap response carries a job-specific Day Pass checkout link and its own x402 offer, and after payment call day_pass_status; it resumes your held handover automatically. Only repeat the wrap call if it did not. If you are a human, pay by card or PayPal at https://zambo.dev/day-pass/ and the pass activates the same way.
 
 If you run Zambo every day, the Pass is $29 per 30 days. Day Pass and Pass are one-time payments.
 
