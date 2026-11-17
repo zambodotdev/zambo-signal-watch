@@ -91,8 +91,8 @@ Every tool free once a day, plus 3 continue calls, resetting at
 handover is always free. The run in `RUN.md`
 cost 4 counted calls for the baseline pass and 5 per check pass, so a
 daily three-signal watch runs free at 5 counted calls a day after day
-one. Past free, the line is per agent: a Day Pass is $0.99 for one
-agent, unlimited for 24 hours; the Zambo Pass is $29 for one agent for
+one. Past free: a Day Pass is $0.99,
+unlimited for 24 hours; the Zambo Pass is $29 for
 30 days. $ZAMBO holders pay $19 for 30 days, and the Lifetime Pass is $250, one payment. Both are one-time payments, never subscriptions.
 
 ## The Zambo pattern family: five packages, one work layer
