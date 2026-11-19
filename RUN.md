@@ -15,8 +15,7 @@ the build record.
 | signal-watch-demo | Saves the baseline, checks against it, wraps the digest | `identity-signal-watch.json` (build record) |
 
 A fresh identity, created for this run. It is not the heartbeat demo's
-identity (the-18th-heartbeat-demo): a new handle, a new allowance, its
-own memory. That is the pattern's point: the watch's state lives in the
+identity (the-18th-heartbeat-demo): a new handle, its own memory. That is the pattern's point: the watch's state lives in the
 watch's own memory, not in a file a human keeps.
 
 ## The rule
@@ -82,11 +81,7 @@ canonical check pass below was run with the fixed, shipped code.
 
 ## Free-tier accounting
 
-Counted calls key to the watcher's own handle. The documented passes:
-baseline 4 (3 prices + the baseline save); each check 5 (the recall, 3
-prices, the reading save); each digest wrap free. Three passes plus one
-extra recall to prove the parser fix: 15 counted calls, inside the 20
-free calls for the day, zero paid calls. (A transport rehearsal before
+Counted calls meter per network, not per handle. Free tier: Every tool free once a day, plus 3 continue calls. One free wrap-up handover per day, and pickup is always free. The documented passes: baseline 4 (3 prices + the baseline save); each check 5 (the recall, 3 prices, the reading save); each digest wrap free. Three passes plus one extra recall to prove the parser fix: 15 counted calls, zero paid calls. (A transport rehearsal before
 the baseline pass cost a few extra price reads against the same handle;
 the pattern run cleanly costs 4 once, then 5 per check.) Run daily, a
 watch shaped like this costs 5 counted calls a day after day one.
